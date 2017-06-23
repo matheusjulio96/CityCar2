@@ -293,7 +293,7 @@ public class AcessoDados extends SQLiteOpenHelper {
                             veiculo.setPlaca(campo.getString(campo.getColumnIndex("placa")));
                             veiculo.setModelo(campo.getString(campo.getColumnIndex("modelo")));
                             veiculo.setCombustivel(campo.getString(campo.getColumnIndex("combustivel")));
-                            veiculo.setKmRodado(campo.getInt(campo.getColumnIndex("placa")));
+                            veiculo.setKmRodado(campo.getInt(campo.getColumnIndex("kmrodado")));
                             //veiculo.setId(campo.getInt(campo.getColumnIndex("rowid")));
                             lista.add(veiculo);
 

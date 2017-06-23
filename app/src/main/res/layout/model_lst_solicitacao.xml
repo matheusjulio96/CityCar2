@@ -6,15 +6,16 @@
 
     <TextView
         android:id="@+id/idAprova_Solicit_CpfUsuario"
-        android:layout_width="115dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.63"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/idAprovaSolicit_Motivo"
-        android:layout_width="142dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:layout_weight="0.30" />
 
 </LinearLayout>
