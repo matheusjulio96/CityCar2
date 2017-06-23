@@ -22,7 +22,8 @@ public class Activity_ger_menu extends AppCompatActivity {
                 "Obter Info. Veiculo",
                 "Cadastrar Usuario",
                 "Aprovar Solicitações",
-                "Receber veiculo"};
+                "Receber veiculo",
+                "Relatório"};
 
         opcoes = (ListView) findViewById(R.id.opcoes);
 
@@ -40,7 +41,8 @@ public class Activity_ger_menu extends AppCompatActivity {
                 Activity_ger_obt_info_veiculo.class,
                 Activity_ger_cad_usuario.class,
                 Activity_ger_AprovaSolicitacao.class,
-                Activity_ReceberVeiculo.class};
+                Activity_ReceberVeiculo.class,
+                ActivityGerRelVeicRodado.class};
 
         opcoes.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {

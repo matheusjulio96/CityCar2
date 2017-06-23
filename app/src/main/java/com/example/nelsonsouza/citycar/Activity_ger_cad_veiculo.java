@@ -17,7 +17,7 @@ public class Activity_ger_cad_veiculo extends AppCompatActivity {
         banco = new AcessoDados(this);
 
         txtMarca=(EditText)findViewById(R.id.txtMarca);
-        txtModelo=(EditText)findViewById(R.id.txtModelo);
+        txtModelo=(EditText)findViewById(R.id.txtModeloRod);
         txtAno=(EditText)findViewById(R.id.txtAno);
         txtCombustivel=(EditText)findViewById(R.id.txtCombustivel);
         txtChassi=(EditText)findViewById(R.id.txtChassi);

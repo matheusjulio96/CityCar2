@@ -75,17 +75,17 @@ public class AcessoDados extends SQLiteOpenHelper {
         banco.close();
     }
 
-    public Veiculo consultaVeiculo(String placa) { //método consulta
+    private Veiculo consultaVeiculo(String placa, int rowid) { //método consulta
         try{
             SQLiteDatabase banco = this.getReadableDatabase();
 
             Cursor campo = banco.query("veiculo", new String[]{
-                    "marca", "modelo", "ano", "combustivel", "chassi", "kmrodado","status"
-            }, "placa = '" + placa+"'", null, null, null, null, null);
+                    "marca", "modelo", "ano", "combustivel", "chassi", "kmrodado","status","placa"
+            }, (!(placa==null))?"placa = '" + placa+"'":"rowid = " + rowid, null, null, null, null, null);
             if (campo != null)
                 campo.moveToFirst();
             Veiculo veiculo = new Veiculo();
-            veiculo.setPlaca(placa);
+            veiculo.setPlaca(campo.getString(7));
             veiculo.setMarca(campo.getString(0));
             veiculo.setModelo(campo.getString(1));
             veiculo.setAno(campo.getString(2));
@@ -96,9 +96,16 @@ public class AcessoDados extends SQLiteOpenHelper {
             campo.close();
             return veiculo;
         }catch(Exception e){
+            Log.d("t",e.getMessage());
             Veiculo veiculo = null;
             return veiculo;
         }
+    }
+    public Veiculo consultaVeiculo(String placa) { //método consulta
+        return consultaVeiculo(placa, 0);
+    }
+    public Veiculo consultaVeiculo(int rowid) { //método consulta
+        return consultaVeiculo(null, rowid);
     }
     //update veiculo
 
@@ -411,6 +418,34 @@ public class AcessoDados extends SQLiteOpenHelper {
                  ///// deveria fazer , por conta de tempo habil não iremos fazer ..... mas
                  //// será necessário criar uma tabela a parte se armazene estes dados....
         banco.close();
+    }
+
+    public StructVeiculos consultarVeiculos(){
+        SQLiteDatabase banco = this.getReadableDatabase();
+        Cursor campo = banco.query("veiculo", new String[] {
+                        "modelo","ano", "kmrodado", "rowid"}
+                , null, null, null, null, "kmrodado desc", null);
+        if (campo != null)
+            campo.moveToFirst();
+
+        int qtd = campo.getCount();//qtd de registros que vieram
+
+        StructVeiculos ss = new StructVeiculos(qtd);
+
+        for(int i=0; i<qtd; i++){
+            ss.modelo[i] = campo.getString(0);
+            ss.ano[i] = campo.getString(1);
+            ss.km[i]= campo.getInt(2);
+            ss.rowid[i] = campo.getInt(3);
+
+            campo.moveToNext();//move para proxima linha
+        }
+
+        campo.close();
+
+
+
+        return ss;
     }
 
 }

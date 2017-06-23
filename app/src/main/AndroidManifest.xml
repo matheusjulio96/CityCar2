@@ -34,7 +34,8 @@
         <activity android:name=".Activity_Lista_Veiculos_Disponiveis" />
         <activity android:name=".Activity_ger_menu" />
         <activity android:name=".Activity_ReceberVeiculo" />
-        <activity android:name=".Activity_DetalheReceberVeiculo"></activity>
+        <activity android:name=".Activity_DetalheReceberVeiculo" />
+        <activity android:name=".ActivityGerRelVeicRodado"></activity>
     </application>
 
 </manifest>

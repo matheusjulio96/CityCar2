@@ -3,10 +3,8 @@ package com.example.nelsonsouza.citycar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 
 public class Activity_user_ve_solicitacao extends AppCompatActivity {
 
@@ -35,7 +33,7 @@ public class Activity_user_ve_solicitacao extends AppCompatActivity {
         solicitacao = banco.consultarSolicitacao(rowid);
 
         cboxDef = (CheckBox)findViewById(R.id.cboxDeferido);
-        txtVeic = (EditText)findViewById(R.id.txtModelo);
+        txtVeic = (EditText)findViewById(R.id.txtModeloRod);
         txtLocal = (EditText)findViewById(R.id.txtLocal);
         txtHora = (EditText)findViewById(R.id.txtHora);
         txtMotivo = (EditText)findViewById(R.id.txtMotivo);
