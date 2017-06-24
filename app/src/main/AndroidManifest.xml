@@ -35,7 +35,10 @@
         <activity android:name=".Activity_ger_menu" />
         <activity android:name=".Activity_ReceberVeiculo" />
         <activity android:name=".Activity_DetalheReceberVeiculo" />
-        <activity android:name=".ActivityGerRelVeicRodado"></activity>
+        <activity android:name=".ActivityGerRelVeicRodado" />
+        <activity android:name=".ActivityGerRelUserSolic" />
+        <activity android:name=".ActivityGerRelMenu" />
+        <activity android:name=".ActivityGerRelVeicSolic"></activity>
     </application>
 
 </manifest>

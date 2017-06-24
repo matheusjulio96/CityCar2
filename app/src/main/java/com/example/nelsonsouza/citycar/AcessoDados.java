@@ -13,12 +13,9 @@ package com.example.nelsonsouza.citycar;
         import android.database.sqlite.SQLiteDatabase;
         import android.database.sqlite.SQLiteOpenHelper;
         import android.util.Log;
-        import android.widget.ListView;
         import android.widget.Toast;
 
-        import java.lang.reflect.Array;
         import java.util.ArrayList;
-        import java.util.List;
 
 public class AcessoDados extends SQLiteOpenHelper {
 
@@ -32,7 +29,7 @@ public class AcessoDados extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase banco) {//todas as tabelas vão ser criadas através do método onCreate
         String
-                DDL = "CREATE TABLE veiculo(placa TEXT PRIMARY KEY, marca TEXT, modelo TEXT," +
+        DDL = "CREATE TABLE veiculo(placa TEXT PRIMARY KEY, marca TEXT, modelo TEXT," +
                 "ano TEXT, combustivel TEXT,chassi TEXT, status BOOLEAN, manutencao BOOLEAN,kmrodado int)";
 
         banco.execSQL(DDL);
@@ -420,7 +417,7 @@ public class AcessoDados extends SQLiteOpenHelper {
         banco.close();
     }
 
-    public StructVeiculos consultarVeiculos(){
+    public StructVeiculos consultarVeiculos(){//para relatorio veiculos mais rodados
         SQLiteDatabase banco = this.getReadableDatabase();
         Cursor campo = banco.query("veiculo", new String[] {
                         "modelo","ano", "kmrodado", "rowid"}
@@ -446,6 +443,63 @@ public class AcessoDados extends SQLiteOpenHelper {
 
 
         return ss;
+    }
+
+    public StructSolicUsuarios consultarSolicitacoesUsuarios(){//para relatorio users que mais locam
+        SQLiteDatabase banco = this.getReadableDatabase();
+        Cursor campo = banco.query("usuario u LEFT JOIN solicitacao s on u.cpf = s.cpf_usuario", new String[] {
+                        "u.rowid","nome","count(s.rowid)"}
+                , null, null, "u.rowid", null, "count(s.rowid) desc", null);
+        if (campo != null)
+            campo.moveToFirst();
+
+        int qtd = campo.getCount();//qtd de registros que vieram
+
+        StructSolicUsuarios su = new StructSolicUsuarios(qtd);
+
+        for(int i=0; i<qtd; i++){
+            su.rowidUser[i] = campo.getInt(0);
+            su.nome[i] = campo.getString(1);
+            su.numLocs[i] = campo.getInt(2);
+
+            campo.moveToNext();//move para proxima linha
+        }
+
+        campo.close();
+
+
+
+        return su;
+    }
+
+    public StructSolicVeiculos consultarQtdLocsVeiculos(){//para relatorio veiculos mais locados
+        SQLiteDatabase banco = this.getReadableDatabase();
+        Cursor campo = banco.query("veiculo v LEFT JOIN solicitacao s on v.placa = s.placa_veic", new String[] {
+                        "v.rowid","v.modelo","ano","count(s.rowid)"}
+                , null, null, "v.rowid", null, "count(s.rowid) desc", null);
+        //LEFT JOIN inclui aqueles veiculos que nao possuem solicitacoes/que possuem cont = 0
+
+        if (campo != null)
+            campo.moveToFirst();
+
+        int qtd = campo.getCount();//qtd de registros que vieram
+
+        StructSolicVeiculos ssolveic = new StructSolicVeiculos(qtd);
+
+        for(int i=0; i<qtd; i++){
+            ssolveic.rowidVeic[i] = campo.getInt(0);
+            ssolveic.modelo[i] = campo.getString(1);
+            ssolveic.ano[i] = campo.getString(2);
+            ssolveic.numSol[i] = campo.getInt(3);
+
+            campo.moveToNext();//move para proxima linha
+        }
+
+        campo.close();
+
+
+
+        return ssolveic;
     }
 
 }

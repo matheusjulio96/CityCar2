@@ -6,13 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
-public class ActivityGerRelVeicRodado extends AppCompatActivity {
+public class ActivityGerRelVeicSolic extends AppCompatActivity {
 
     private ListView veiculos;
 
@@ -23,20 +20,20 @@ public class ActivityGerRelVeicRodado extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ger_rel_veic_rodado);
+        setContentView(R.layout.activity_ger_rel_veic_solic);
 
-        setTitle("Veículos mais Rodados");
+        setTitle("Veículos mais Locados");
 
         banco = new AcessoDados(this);
 
         //Intent intent = getIntent();
         //usuarioLogado = (Usuario) intent.getSerializableExtra("usuario");
 
-        final StructVeiculos sv = banco.consultarVeiculos();
+        final StructSolicVeiculos svs = banco.consultarQtdLocsVeiculos();
 
         veiculos = (ListView) findViewById(R.id.veiculos);
 
-        adapter = new AdapterVeiculosRodados(this,sv);
+        adapter = new AdapterSolicVeiculos(this,svs);
 
         veiculos.setAdapter((ListAdapter)adapter);
 
@@ -44,8 +41,8 @@ public class ActivityGerRelVeicRodado extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(ActivityGerRelVeicRodado.this, Activity_ger_obt_info_veiculo.class); //intent para verificar se há recursos no aparelho
-                        intent.putExtra("numClick", sv.rowid[position]);
+                        Intent intent = new Intent(ActivityGerRelVeicSolic.this, Activity_ger_obt_info_veiculo.class); //intent para verificar se há recursos no aparelho
+                        intent.putExtra("numClick", svs.rowidVeic[position]);
                         startActivity(intent);
                     }
                 }

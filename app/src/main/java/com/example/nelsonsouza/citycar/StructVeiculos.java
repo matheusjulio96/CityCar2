@@ -9,13 +9,11 @@ public class StructVeiculos {
     public String[] modelo;
     public String[] ano;
     public int[] km;
-    public int[] kmbar;
 
     public StructVeiculos(int Tam) {
         this.rowid = new int[Tam];
         this.modelo = new String[Tam];
         this.ano = new String[Tam];
         this.km = new int[Tam];
-        this.kmbar = new int[Tam];
     }
 }

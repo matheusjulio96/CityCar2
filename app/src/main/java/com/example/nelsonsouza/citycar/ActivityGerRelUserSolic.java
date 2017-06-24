@@ -6,49 +6,46 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+public class ActivityGerRelUserSolic extends AppCompatActivity {
 
-public class ActivityGerRelVeicRodado extends AppCompatActivity {
-
-    private ListView veiculos;
+    private ListView solusers;
 
     private AcessoDados banco;
-    //private Usuario usuarioLogado;
+    private Usuario usuarioLogado;
     private Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ger_rel_veic_rodado);
+        setContentView(R.layout.activity_ger_rel_user_solic);
 
-        setTitle("Veículos mais Rodados");
+        setTitle("Usuários mais Locadores");
 
         banco = new AcessoDados(this);
 
-        //Intent intent = getIntent();
-        //usuarioLogado = (Usuario) intent.getSerializableExtra("usuario");
+        Intent intent = getIntent();
+        usuarioLogado = (Usuario) intent.getSerializableExtra("usuario");
 
-        final StructVeiculos sv = banco.consultarVeiculos();
+        final StructSolicUsuarios ssolusers = banco.consultarSolicitacoesUsuarios();
 
-        veiculos = (ListView) findViewById(R.id.veiculos);
+        solusers = (ListView) findViewById(R.id.solusers);
 
-        adapter = new AdapterVeiculosRodados(this,sv);
+        adapter = new AdapterSolicUsuarios(this,ssolusers);
 
-        veiculos.setAdapter((ListAdapter)adapter);
+        solusers.setAdapter((ListAdapter)adapter);
 
-        veiculos.setOnItemClickListener(
+        /*veiculos.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(ActivityGerRelVeicRodado.this, Activity_ger_obt_info_veiculo.class); //intent para verificar se há recursos no aparelho
+                        Intent intent = new Intent(ActivityGerRelUserSolic.this, Activity_ger_obt_info_veiculo.class); //intent para verificar se há recursos no aparelho
                         intent.putExtra("numClick", sv.rowid[position]);
                         startActivity(intent);
                     }
                 }
-        );
+        );*/
     }
 }

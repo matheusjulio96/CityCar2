@@ -19,23 +19,19 @@ import java.util.ArrayList;
 
 public class AdapterVeiculosRodados extends BaseAdapter {
     private Context context;
-    private StructVeiculos veiculos ;
+    private StructVeiculos veiculos;
+    private int maiorkm;
 
     public AdapterVeiculosRodados(Context context, StructVeiculos sveiculos) {
         this.context = context;
         this.veiculos = sveiculos;
 
-        int maiorkm=0;
+        maiorkm=0;
         for(int i : veiculos.km){
             if(i > maiorkm){
                 maiorkm = i;
             }
         }
-        maiorkm/=93;//100 ultrapassa
-        for(int i=0; i<veiculos.km.length; i++){
-            veiculos.kmbar[i]=veiculos.km[i]/maiorkm;
-        }
-
     }
 
     @Override
@@ -63,10 +59,11 @@ public class AdapterVeiculosRodados extends BaseAdapter {
         TextView ano = (TextView) convertView.findViewById(R.id.txtAnoRod);
         TextView km = (TextView) convertView.findViewById(R.id.txtKmRod);
         ProgressBar pbkm = (ProgressBar)convertView.findViewById(R.id.progressBar);
+        pbkm.setMax(maiorkm);
         modelo.setText(veiculos.modelo[position]);
         ano.setText(veiculos.ano[position]);
         km.setText(String.valueOf(veiculos.km[position]));
-        pbkm.setProgress(veiculos.kmbar[position]);
+        pbkm.setProgress(veiculos.km[position]);
         return convertView;
     }
 }
