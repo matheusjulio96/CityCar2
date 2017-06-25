@@ -17,6 +17,8 @@ public class Activity_DetalheReceberVeiculo extends AppCompatActivity {
     TextView campo4;
     TextView campo5;
     TextView campo6;
+    TextView campo7;
+    TextView campo8;
 
     Intent intent;
 
@@ -33,8 +35,9 @@ public class Activity_DetalheReceberVeiculo extends AppCompatActivity {
         campo2 = (TextView) findViewById(R.id.txtModeloReceberVeiculo);
         campo3 = (TextView) findViewById(R.id.txtUsuarioReceberVeiculo);
         campo4 = (TextView) findViewById(R.id.txtCpfReceberVeiculo);
-        //campo5 = (TextView) findViewById(R.id);
+        campo5 = (TextView) findViewById(R.id.txtKmReceberVeiculo);
         campo6 = (TextView) findViewById(R.id.txtObsReceberVeiculo);
+        campo7 = (TextView) findViewById(R.id.txtDataReceberVeiculo);
 
         campo1.setText(solicitante.getPlaca());
         campo2.setText(solicitante.getModelo());
@@ -48,14 +51,12 @@ public class Activity_DetalheReceberVeiculo extends AppCompatActivity {
     }
 
     public void recebeVeiculo(View view){
+        solicitante.setKm(campo5.getText().toString());
+        solicitante.setData(campo7.getText().toString());
+        solicitante.setObservacao(campo6.getText().toString());
         AcessoDados conecta = new AcessoDados(this);
-
         conecta.recebeVeiculo(solicitante);
         Toast.makeText(getBaseContext(),"VEICULO foi liberado!",Toast.LENGTH_LONG).show();
         finish();
     }
-
-
-
-
 }

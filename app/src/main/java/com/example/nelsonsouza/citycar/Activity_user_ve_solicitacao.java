@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
 public class Activity_user_ve_solicitacao extends AppCompatActivity {
 
     private AcessoDados banco;
@@ -17,6 +16,9 @@ public class Activity_user_ve_solicitacao extends AppCompatActivity {
     EditText txtHora;
     EditText txtMotivo;
     EditText txtModelo;
+    EditText txtData;
+    EditText txtObs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +35,13 @@ public class Activity_user_ve_solicitacao extends AppCompatActivity {
         solicitacao = banco.consultarSolicitacao(rowid);
 
         cboxDef = (CheckBox)findViewById(R.id.cboxDeferido);
-        txtVeic = (EditText)findViewById(R.id.txtModeloRod);
+        txtVeic = (EditText)findViewById(R.id.txtModelo);
         txtLocal = (EditText)findViewById(R.id.txtLocal);
         txtHora = (EditText)findViewById(R.id.txtHora);
         txtMotivo = (EditText)findViewById(R.id.txtMotivo);
         txtModelo = (EditText) findViewById(R.id.txtModeloVeSolicitacao);
+        txtData = (EditText) findViewById(R.id.txtDataVeSolicitacao);
+        txtObs = (EditText) findViewById(R.id.txtObsVeSolicitacao);
 
         cboxDef.setChecked(solicitacao.isDeferido());
         txtVeic.setText(solicitacao.getPlacaVeiculo()); //modelo
@@ -45,5 +49,8 @@ public class Activity_user_ve_solicitacao extends AppCompatActivity {
         txtHora.setText(solicitacao.getHoraRetirada());
         txtMotivo.setText(solicitacao.getMotivo());
         txtModelo.setText(solicitacao.getModeloVeiculo());
+        txtData.setText((solicitacao.getDataDevolucao()));
+        txtObs.setText(solicitacao.getObs());
+
     }
 }

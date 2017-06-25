@@ -6,8 +6,6 @@ import java.io.Serializable;
  * Created by Nelson Souza on 28/05/2017.
  */
 
-
-
 public class AprovaSolicitacao implements Serializable{
     private String nome;
     private String cpf;
@@ -23,6 +21,8 @@ public class AprovaSolicitacao implements Serializable{
     private String horaIdeal;
     private String periodo;
     private int idRegistroVeiculo;
+    private String observacao;
+    private String data;
 
     public String getCpf() {
         return cpf;
@@ -132,5 +132,21 @@ public class AprovaSolicitacao implements Serializable{
 
     public void setIdRegistroVeiculo(int idRegistroVeiculo) {
         this.idRegistroVeiculo = idRegistroVeiculo;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

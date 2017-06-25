@@ -4,9 +4,7 @@ package com.example.nelsonsouza.citycar;
  * Created by Nelson Souza on 25/05/2017.
  */
 
-
-
-        import android.content.ContentValues;
+import android.content.ContentValues;
         import android.content.Context;
         import android.database.Cursor;
         import android.database.SQLException;
@@ -41,7 +39,7 @@ public class AcessoDados extends SQLiteOpenHelper {
         //nao precisa de autoincrement pq sqlite cria rowid automaticamente
         DDL = "CREATE TABLE solicitacao(cpf_usuario INTEGER references usuario, motivo TEXT, periodo INTEGER," +
                 "p_dias BOOLEAN, p_horas BOOLEAN, hora_ideal TEXT, deferido BOOLEAN, localRetirada TEXT,horaRetirada TEXT,"+
-                "kmRetirada ,placa_veic TEXT references veiculo, status BOOLEAN, modelo TEXT, finalizada BOOLEAN)";
+                "kmRetirada ,placa_veic TEXT references veiculo, status BOOLEAN, modelo TEXT, finalizada BOOLEAN, observacao TEXT, dataDevolucao TEXT)";
         // OBS FINALIZADA = qdo entrega o veiculo aqui passa para 1 quer dizer que encerrou....
         // status = default é zero e quando foi feito algo pelo gerente passa para 1.
         // deferido = qdo gerente aprova passa para 1 o default é 0
@@ -207,7 +205,7 @@ public class AcessoDados extends SQLiteOpenHelper {
     public Solicitacao consultarSolicitacao(int solROWID){
         SQLiteDatabase banco = this.getReadableDatabase();
         Cursor campo = banco.query("solicitacao", new String[] {
-                        "cpf_usuario", "motivo", "periodo", "p_dias", "p_horas", "horaRetirada", "deferido", "placa_veic", "localRetirada","modelo"}
+                        "cpf_usuario", "motivo", "periodo", "p_dias", "p_horas", "horaRetirada", "deferido", "placa_veic", "localRetirada","modelo","observacao","dataDevolucao"}
                 , "ROWID = " + solROWID, null, null, null, null, null);
         if (campo != null)
             campo.moveToFirst();
@@ -223,6 +221,8 @@ public class AcessoDados extends SQLiteOpenHelper {
         solicitacao.setPlacaVeiculo(campo.getString(7));
         solicitacao.setLocalRetirada(campo.getString(8));
         solicitacao.setModeloVeiculo(campo.getString(9));
+        solicitacao.setObs(campo.getString(10));
+        solicitacao.setDataDevolucao(campo.getString(11));
         campo.close();
         return solicitacao;
     }
@@ -403,17 +403,20 @@ public class AcessoDados extends SQLiteOpenHelper {
         // finalizando a solicitação colocando como 1 no campo finalizada...
         ContentValues valores = new ContentValues();
         valores.put("finalizada",1);
+        valores.put("observacao",solicitacao.getObservacao());
+        valores.put("dataDevolucao", solicitacao.getData());
         banco.update("solicitacao",valores,"placa_veic='"+solicitacao.getPlaca()+"' and cpf_usuario ='"+solicitacao.getCpf()+"'",null);
-         /////// agora faz o lançamento na tabela de veiculos e libera o veiculo ////
+        /////// agora faz o lançamento na tabela de veiculos e libera o veiculo ////
 
         ContentValues valveic = new ContentValues();
         //valores.put("kmrodado",Integer.parseInt(solicitacao.)) // não foi incluido....... ficou de fora vai ficar ....
         valveic.put("status", 0);
+        valveic.put("kmrodado", solicitacao.getKm());
         banco.update("veiculo",valveic,"placa ='"+solicitacao.getPlaca()+"'",null);
 
-         /////// agora faz o lançamento numa tabela onde ficara a informação sobre todos as locações deste veiculo...
-                 ///// deveria fazer , por conta de tempo habil não iremos fazer ..... mas
-                 //// será necessário criar uma tabela a parte se armazene estes dados....
+        /////// agora faz o lançamento numa tabela onde ficara a informação sobre todos as locações deste veiculo...
+        ///// deveria fazer , por conta de tempo habil não iremos fazer ..... mas
+        //// será necessário criar uma tabela a parte se armazene estes dados....
         banco.close();
     }
 

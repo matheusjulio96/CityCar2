@@ -17,6 +17,8 @@ public class Solicitacao {
     private String localRetirada;
     private String modeloVeiculo;
     private String horaRetirada;
+    private String dataDevolucao;
+    private String obs;
 
 
     public Solicitacao() {
@@ -117,5 +119,21 @@ public class Solicitacao {
 
     public void setHoraRetirada(String horaRetirada) {
         this.horaRetirada = horaRetirada;
+    }
+
+    public String getDataDevolucao() {
+        return dataDevolucao;
+    }
+
+    public void setDataDevolucao(String dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
+    }
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
     }
 }
