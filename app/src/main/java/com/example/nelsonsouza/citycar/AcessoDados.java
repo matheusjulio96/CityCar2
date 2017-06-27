@@ -127,19 +127,19 @@ public class AcessoDados extends SQLiteOpenHelper {
         banco.insert("usuario",null, valores);
         banco.close();
     }
-
-    public Usuario consultarUsuario(int cpf){
+    //1 - cpf; 2 - rowid
+    public Usuario consultarUsuario(int num, int tipo){
         Usuario usuario = null;
         try{
             SQLiteDatabase banco = this.getReadableDatabase();
             Cursor campo = banco.query("usuario", new String[] {
                             "cpf", "nome", "setor", "Telefone", "Senha"}
-                    , "cpf = " + cpf, null, null, null, null, null);
+                    , num==1 ? "cpf = "+num : "rowid = "+num, null, null, null, null, null);
 
             if (campo != null) {
                 usuario = new Usuario();
                 campo.moveToFirst();
-                usuario.setCpf(cpf);
+                usuario.setCpf(num);
                 usuario.setNome(campo.getString(1));
                 usuario.setSetor(campo.getString(2));
                 usuario.setTelefone(campo.getString(3));
@@ -152,6 +152,10 @@ public class AcessoDados extends SQLiteOpenHelper {
             return null;
         }
     }
+    public Usuario consultarUsuario(int cpf){
+        return consultarUsuario(cpf, 1/*tipo cpf*/);
+    }
+
     // altera o usuario selecionado...
     public void alteraUsuario(int cpf, Usuario usuario){
         SQLiteDatabase banco = this.getWritableDatabase();
@@ -335,7 +339,9 @@ public class AcessoDados extends SQLiteOpenHelper {
         SQLiteDatabase banco = this.getReadableDatabase();
         Cursor campo = banco.query("solicitacao", new String[] {
                         "cpf_usuario","motivo", "hora_ideal", "deferido", "status", "rowid"}
-                , "cpf_usuario = " + cpfUser, null, null, null, "rowid desc", null);
+                , cpfUser!=-1 ? "cpf_usuario = " + cpfUser : null, null, null, null, "rowid desc", null);
+        //cpf = -1 usado na lista de solicitacoes do gerente
+
         if (campo != null)
             campo.moveToFirst();
 
@@ -364,6 +370,7 @@ public class AcessoDados extends SQLiteOpenHelper {
 
         return ss;
     }
+
     // usada para efetuar recebimento do veiculo
 
     public ArrayList<AprovaSolicitacao> listaVeiculosReceber (ArrayList<AprovaSolicitacao> lista){

@@ -21,6 +21,7 @@ public class Activity_ger_menu extends AppCompatActivity {
                 "Cadastrar Veiculo",
                 "Obter Info. Veiculo",
                 "Cadastrar Usuario",
+                "Lista de Solicitações",
                 "Aprovar Solicitações",
                 "Receber veiculo",
                 "Relatórios"};
@@ -40,6 +41,7 @@ public class Activity_ger_menu extends AppCompatActivity {
                 Activity_ger_cad_veiculo.class,
                 Activity_ger_obt_info_veiculo.class,
                 Activity_ger_cad_usuario.class,
+                ActivityGerListaSolicitacoes.class,
                 Activity_ger_AprovaSolicitacao.class,
                 Activity_ReceberVeiculo.class,
                 ActivityGerRelMenu.class};

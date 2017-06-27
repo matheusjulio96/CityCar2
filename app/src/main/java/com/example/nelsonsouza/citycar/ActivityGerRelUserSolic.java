@@ -37,15 +37,15 @@ public class ActivityGerRelUserSolic extends AppCompatActivity {
 
         solusers.setAdapter((ListAdapter)adapter);
 
-        /*veiculos.setOnItemClickListener(
+        solusers.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(ActivityGerRelUserSolic.this, Activity_ger_obt_info_veiculo.class); //intent para verificar se há recursos no aparelho
-                        intent.putExtra("numClick", sv.rowid[position]);
+                        Intent intent = new Intent(ActivityGerRelUserSolic.this, Activity_ger_cad_usuario.class); //intent para verificar se há recursos no aparelho
+                        intent.putExtra("numClick", ssolusers.rowidUser[position]);
                         startActivity(intent);
                     }
                 }
-        );*/
+        );
     }
 }

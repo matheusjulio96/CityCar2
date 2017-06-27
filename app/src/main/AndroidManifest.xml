@@ -38,7 +38,8 @@
         <activity android:name=".ActivityGerRelVeicRodado" />
         <activity android:name=".ActivityGerRelUserSolic" />
         <activity android:name=".ActivityGerRelMenu" />
-        <activity android:name=".ActivityGerRelVeicSolic"></activity>
+        <activity android:name=".ActivityGerRelVeicSolic" />
+        <activity android:name=".ActivityGerListaSolicitacoes"></activity>
     </application>
 
 </manifest>
